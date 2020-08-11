@@ -1,13 +1,16 @@
+# load ggplot
 library(ggplot2)
 
+# save directory path to object
 path <- getwd()
 
 ### load the R.data (available in the github repository), this include the 6 models, a list of the generation times used, and a list the data structure of each species.
 load("data.RData")
 
-setwd(path)
+### load observed summary statistics
 observed <- dget("observed.txt")
 
+# species names for the plot
 sp.names <- c("Campephilus principalis",
               "Colinus virginianus",
               "Conuropsis carolinensis",
@@ -18,6 +21,7 @@ sp.names <- c("Campephilus principalis",
               "Vermivora bachmanii",
               "Zenaida macroura")
 
+### this function plots first 10 PCs for all species. This will generate a long pdf.
 PCA.of.models1 <- function(name) {
   
   pdf(paste("PCA1_",name,".pdf",sep=""), paper="a4r", width=10, pointsize=10)
@@ -94,7 +98,7 @@ PCA.of.models1 <- function(name) {
   
 }
 
-
+### this function plots the first two PCS of each speacies in a single page.
 PCA.of.models2 <- function(name) {
   
   pdf(paste("PCA2_",name,".pdf",sep=""), paper="a4r", width=10, pointsize=10)
@@ -174,12 +178,13 @@ PCA.of.models2 <- function(name) {
   dev.off()
 }
 
-
+## this will loop through all generation times
 for(i in 1:length(gentimes)) {
   setwd(paste(path,"/", names(gentimes)[i],sep=""))
   PCA.of.models1(name = names(gentimes)[i])
 }
 
+## this will loop through all generation times
 for(i in 1:length(gentimes)) {
   setwd(paste(path,"/", names(gentimes)[i],sep=""))
   PCA.of.models2(name = names(gentimes)[i])

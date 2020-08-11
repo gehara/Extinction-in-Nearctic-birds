@@ -6,10 +6,7 @@ path <- getwd()
 ### load the R.data (available in the github repository), this include the 6 models, a list of the generation times used, and a list the data structure of each species.
 load("data.RData")
 
-setwd(path)
 obs <- dget("observed.txt")
-
-
 sp.names <- c("Campephilus principalis",
               "Colinus virginianus",
               "Conuropsis carolinensis",
@@ -112,4 +109,5 @@ names(result) <- names(gentimes)
 
 print(result)
 
+# Saves the results with dput, it can be retrieved inside R with dget("model_class_result.txt")
 dput(result, "model_class_result.txt")

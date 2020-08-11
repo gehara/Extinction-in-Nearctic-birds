@@ -6,9 +6,8 @@ path <- getwd()
 ### load the R.data (available in the github repository), this include the 6 models, a list of the generation times used, and a list the data structure of each species.
 load("data.RData")
 
-setwd(path)
+### load observed
 obs <- dget("observed.txt")
-
 
 sp.names <- c("Campephilus principalis",
               "Colinus virginianus",
@@ -21,27 +20,30 @@ sp.names <- c("Campephilus principalis",
               "Zenaida macroura")
 
 
-
-
-
+### this part creates a index reference to the supported models
+###
+###
 RES <- list()
 suported <- list()
 suported$"1" <- c(2,1,6,6,6,3,2,6,6)
 suported$'2' <- c(2,1,6,6,6,3,2,6,6)
 suported$'3' <- c(5,5,6,6,6,3,5,6,6)
 suported$'lit' <- c(6,1,6,6,6,3,5,3,6)
+
+### this part creates an index for the number of parameters for each supported models
 npars <- list()
 npars$'1' <- c(1,3,5,5,5,3,1,5,5)
 npars$'2' <- c(1,3,5,5,5,3,1,5,5)
 npars$'3' <- c(5,5,5,5,5,3,5,5,5)
 npars$'lit' <- c(5,3,5,5,5,3,5,3,5)
 
+
 x <- species
 
 estimate<-function(){
 numeric.w <- 0
 for(w in c("1", "2", "3", "lit"))
-#for(w in c("3"))
+
   {
   numeric.w <- numeric.w + 1
   setwd(paste(path,"/", w, sep=""))
@@ -82,7 +84,7 @@ for(w in c("1", "2", "3", "lit"))
       c(test_images, test_labels) %<-% proc.data$test
 
       train_images <- scale(train_images)
-      #train_images <- train_images/max(train_images)
+      
       # Use means and standard deviations from training set to normalize test set
       col_means_train <- attr(train_images, "scaled:center")
       col_stddevs_train <- attr(train_images, "scaled:scale")
@@ -92,7 +94,7 @@ for(w in c("1", "2", "3", "lit"))
         layer_dense(units = 32, activation = "relu",
                     input_shape = dim(train_images)[2]) %>%
         layer_dense(units = 32, activation = "relu") %>%
-        #layer_dense(units = 32, activation = "relu") %>%
+       
         layer_dense(units = 1, activation = "relu")
 
       regress %>% compile(
@@ -134,8 +136,6 @@ return(RES)
 result <- estimate()
 names(result) <- c("1","2","3","lit")
 print(result)
+
+# Saves the results with dput, it can be retrieved inside R with dget("result.txt")
 dput(result, "result.txt")
-
-
-
-
