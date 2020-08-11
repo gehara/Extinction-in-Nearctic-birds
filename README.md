@@ -1,7 +1,7 @@
 # Extinction-in-Nearctic-birds
 R scripts used in the paper "Extinction in Nearctic birds" from Smith, Gehara and Harvey
 
-The sequnces can be dowloaded from the link bellow and the oberved summary statistics can be calculated following the PipeMaster tutorial (github.com/gehara/PipeMaster). The scripts and analyses will work without downloading the sequences since the calculated observed sumstat is already avaiable in the repository (observed.txt).
+The sequnces can be downloaded from the link bellow and the observed summary statistics can be calculated following the PipeMaster tutorial (github.com/gehara/PipeMaster). However, the scripts and analyses will work without downloading the sequences since the calculated observed sumstat is already avaiable in the repository (observed.txt).
 
 https://www.dropbox.com/sh/64ckhz17fbra6sc/AABtJ3znAm7UZPbo6fTcJLnFa?dl=0
 
